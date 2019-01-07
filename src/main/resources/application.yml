@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    password: thisRandomPassword
+    url: jdbc:mysql://localhost:3306/spring_mysql_demo?serverTimezone=UTC
+    username: spring_mysql_demo_user
+  jpa:
+    hibernate:
+      ddl-auto: create
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://securetoken.google.com/oghma-1538923967216
