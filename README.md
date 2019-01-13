@@ -31,3 +31,4 @@ When a user make a request, we need to get the corresponding user in the jpa. Wh
 ## Problems
 
 - Default AuthenticationManager still displaying random useless password in terminal.
+- When the database is down, it still run.
