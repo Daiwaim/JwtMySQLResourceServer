@@ -24,6 +24,11 @@ public class DemoController {
     public String index(@AuthenticationPrincipal Principal principal) {
         String tokenSubject = principal.getName();
         User user = repository.findByTokenSubject(tokenSubject);
-        return String.format("Hello, %s!", user.getName());
+        if(user == null) {
+            return "Hello new guy";
+        }
+        else {
+            return String.format("Hello, %s!", user.getName());
+        }
     }
 }
