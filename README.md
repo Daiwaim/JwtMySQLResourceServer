@@ -26,7 +26,7 @@ This ResourceServer work well with third party JWT authentication, like Firebase
 
 ## Improvements
 
-When a user make a request, we need to get the corresponding user in the jpa. When there is no corresponding user (a new guy) we need to register him. All this should be done in a function, not in the middle of a rest endpoint.
+The user service providing the current user still need to be called in the middle of any rest endpoint. The endpoint also need to provide the token subject. Perfect solution would be an custom annotation providing the current user on a parameter.
 
 ## Problems
 
