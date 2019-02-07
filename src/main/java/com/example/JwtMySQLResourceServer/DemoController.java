@@ -12,17 +12,14 @@ import com.example.JwtMySQLResourceServer.User.UserRepository;
 public class DemoController {
 
     private final UserRepository repository;
-    private final CurrentUserService currentUserService;
 
     @Autowired
-    public DemoController(UserRepository repository, CurrentUserService currentUserService) {
+    public DemoController(UserRepository repository) {
         this.repository = repository;
-        this.currentUserService = currentUserService;
     }
 
     @GetMapping("/")
-    public String index(@AuthenticationPrincipal String tokenSubject) {
-        User user = currentUserService.getUser(tokenSubject);
+    public String index(@AuthenticationPrincipal User user) {
         return String.format("Hello, %s!", user.getName());
     }
 }

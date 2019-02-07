@@ -3,24 +3,23 @@ package com.example.JwtMySQLResourceServer;
 import com.example.JwtMySQLResourceServer.User.User;
 import com.example.JwtMySQLResourceServer.User.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CurrentUserService {
-
-    private final UserRepository repository;
+public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
-    public CurrentUserService(UserRepository repository) {
-        this.repository = repository;
-    }
+    private UserRepository repository;
 
-    public User getUser(String tokenSubject) {
+    @Override
+    public UserDetails loadUserByUsername(String tokenSubject) {
         User user = repository.findByTokenSubject(tokenSubject);
-        if(user == null) {
+        if (user == null) {
             user = new User(tokenSubject);
             user = repository.save(user);
         }
-        return user;
+        return new CustomUserDetails(user);
     }
 }
