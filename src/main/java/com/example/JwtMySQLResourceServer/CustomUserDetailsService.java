@@ -15,6 +15,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String tokenSubject) {
+        System.out.println("working...");
         User user = repository.findByTokenSubject(tokenSubject);
         if (user == null) {
             user = new User(tokenSubject);
