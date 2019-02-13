@@ -10,7 +10,7 @@ import com.example.JwtMySQLResourceServer.User.User;
 public class DemoController {
 
     @GetMapping("/")
-    public String index(@AuthenticationPrincipal User user) {
-        return String.format("Hello, %s!", user.getName());
+    public String index(@AuthenticationPrincipal String truc) {
+        return String.format("Hello, %s!", truc);
     }
 }
