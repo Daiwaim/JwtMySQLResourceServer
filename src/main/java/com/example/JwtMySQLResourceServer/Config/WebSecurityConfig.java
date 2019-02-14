@@ -16,14 +16,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final CustomUserDetailsService customUserDetailsService;    // Comment sait-il qu'il faut prendre mon implementation ?
 
-    @Autowired
-    public WebSecurityConfig(CustomUserDetailsService customUserDetailsService) {
+    @Autowired public WebSecurityConfig(CustomUserDetailsService customUserDetailsService) {
         this.customUserDetailsService = customUserDetailsService;
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService());
+        userDetailsService().loadUserByUsername("truc");
         //auth.authenticationProvider(authenticationProvider());
     }
 
@@ -50,8 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .jwt();
     }
 
-    @Override
-    protected UserDetailsService userDetailsService() {
+    @Override protected UserDetailsService userDetailsService() {
         return customUserDetailsService;
     }
 }
