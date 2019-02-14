@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 @Configuration
 @EnableWebSecurity
@@ -22,8 +23,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(customUserDetailsService);
-        //auth.userDetailsService(userDetailsService());                // A quelle fonction fait-il référence ?
+        auth.userDetailsService(userDetailsService());
         //auth.authenticationProvider(authenticationProvider());
     }
 
@@ -31,7 +31,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userDetailsService);
+        authProvider.setUserDetailsService(userDetailsService());
         return authProvider;
     }
     */
@@ -39,7 +39,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                //.userDetailsService(customUserDetailsService)
+                //.userDetailsService(userDetailsService())
                 .sessionManagement()
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                     .and()
@@ -48,5 +48,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .and()
                 .oauth2ResourceServer()
                     .jwt();
+    }
+
+    @Override
+    protected UserDetailsService userDetailsService() {
+        return customUserDetailsService;
     }
 }
