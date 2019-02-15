@@ -15,9 +15,9 @@ public class User {
     private String tokenSubject;
     private String name;
 
-    protected User() {}
+    User() {}
 
-    public User(String tokenSubject) {
+    User(String tokenSubject) {
         this.tokenSubject = tokenSubject;
     }
 
