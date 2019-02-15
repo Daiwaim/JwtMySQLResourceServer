@@ -1,8 +1,7 @@
-package com.example.JwtMySQLResourceServer;
+package com.example.JwtMySQLResourceServer.User;
 
-import com.example.JwtMySQLResourceServer.User.User;
-import com.example.JwtMySQLResourceServer.User.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,7 +14,8 @@ public class CurrentUserService {
         this.repository = repository;
     }
 
-    public User getUser(String tokenSubject) {
+    public User getUser() {
+        String tokenSubject = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = repository.findByTokenSubject(tokenSubject);
         if(user == null) {
             user = new User(tokenSubject);
