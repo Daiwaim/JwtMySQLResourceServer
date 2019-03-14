@@ -26,7 +26,7 @@ public class DemoController {
 
     @GetMapping("/hello")
     public String hello(@CurrentUser User user) {
-        return String.format("Hello, %s!", user.getName());     // On fait quoi s'il y a pas de name? Faut-il en mettre un par défaut?
+        return String.format("Hello, %s!", user.getName());     // On fait quoi s'il y a pas de name? Faut-il en mettre un par défaut? Ou plutôt, name est-il un useless attribute?
     }
 
     @PutMapping("/updateName")
